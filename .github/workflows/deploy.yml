@@ -12,24 +12,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Uncomment the steps below if your site needs a Node.js build step
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: '20'
-      # - name: Install and Build
-      #   run: |
-      #     npm ci
-      #     npm run build
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-      - name: Sync files via SFTP
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Copy files via SFTP/SCP
         uses: appleboy/scp-action@v0.1.7
         with:
-          server: ${{ secrets.SFTP_SERVER }}
+          host: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          protocol: sftp
           port: 22
-          local-dir: ./_site/          # Change to ./dist/ or ./_site/ if building a static site
-          server-dir: /public/          # Change to your domain's target folder if not root
-
+          source: "_site/*"
+          target: "/"
+          strip_components: 1
