@@ -23,7 +23,7 @@ jobs:
       #     npm run build
 
       - name: Sync files via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: appleboy/scp-action@v0.1.7
         with:
           server: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
