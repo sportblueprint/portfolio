@@ -17,9 +17,9 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install and Build
+      -       - name: Install and Build
         run: |
-          npm ci
+          npm ci --omit=optional
           npm run build
 
       - name: Copy files via SFTP/SCP
