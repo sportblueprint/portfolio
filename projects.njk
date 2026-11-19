@@ -1,0 +1,24 @@
+---
+layout: base.njk
+title: All Projects
+permalink: /projects/
+---
+<header class="page-intro">
+  <h1>Projects & Case Studies</h1>
+  <p>An archive of systems, prototypes, and user experience case studies.</p>
+</header>
+
+<section class="projects-grid">
+  {% for project in collections.projects %}
+    <article class="project-card">
+      <div class="card-meta">
+        <span class="project-tag">{{ project.data.role }}</span>
+      </div>
+      <h2 class="card-title">
+        <a href="{{ project.url }}">{{ project.data.title }}</a>
+      </h2>
+      <p class="card-desc">{{ project.data.description }}</p>
+      <a href="{{ project.url }}" class="card-link">View Case Study &rarr;</a>
+    </article>
+  {% endfor %}
+</section>

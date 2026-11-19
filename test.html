@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senior Design Systems UX Designer — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      /* Color Palette */
+      --color-bg-canvas: #0b0f17;
+      --color-bg-surface: #131b2e;
+      --color-bg-surface-elevated: #1e293b;
+      --color-border-subtle: #243049;
+      --color-border-strong: #3b4d6b;
+      
+      --color-text-primary: #f8fafc;
+      --color-text-secondary: #94a3b8;
+      --color-text-tertiary: #64748b;
+      
+      --color-brand-primary: #38bdf8;
+      --color-brand-accent: #818cf8;
+      --color-success: #34d399;
+
+      /* Spacing Scale (8pt baseline) */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-24: 96px;
+
+      /* Typography */
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Border Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-pill: 9999px;
+
+      /* Layout */
+      --max-width: 1080px;
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-bg-canvas);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 0 var(--space-4);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       NAVIGATION
+       ========================================================================== */
+    header {
+      padding: var(--space-6) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .nav-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-pill);
+      background-color: rgba(56, 189, 248, 0.1);
+      color: var(--color-brand-primary);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-6);
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-text-primary);
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .hero {
+      padding: var(--space-24) 0 var(--space-16);
+      max-width: 840px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 0.85rem;
+      color: var(--color-success);
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      padding: 4px var(--space-3);
+      border-radius: var(--radius-pill);
+      margin-bottom: var(--space-4);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--color-success);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--color-success);
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-6);
+    }
+
+    .hero-lead {
+      font-size: 1.25rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-8);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-4);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .metric-value {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--color-brand-primary);
+      font-family: var(--font-mono);
+    }
+
+    .metric-label {
+      font-size: 0.85rem;
+      color: var(--color-text-tertiary);
+    }
+
+    /* ==========================================================================
+       SECTION HEADERS
+       ========================================================================== */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: var(--space-8);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       CASE STUDIES
+       ========================================================================== */
+    .case-studies {
+      padding: var(--space-16) 0;
+    }
+
+    .study-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+    }
+
+    .study-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      transition: border-color 0.2s ease;
+    }
+
+    .study-card:hover {
+      border-color: var(--color-border-strong);
+    }
+
+    .study-content {
+      padding: var(--space-8);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .study-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-brand-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-2);
+    }
+
+    .study-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-3);
+      letter-spacing: -0.02em;
+    }
+
+    .study-description {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: var(--space-6);
+    }
+
+    .study-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+    }
+
+    .study-highlights li {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .study-highlights li::before {
+      content: "→";
+      color: var(--color-brand-primary);
+      font-weight: 700;
+    }
+
+    .study-preview {
+      background: var(--color-bg-surface-elevated);
+      border-left: 1px solid var(--color-border-subtle);
+      padding: var(--space-8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Design System Interactive Demo Preview in Card */
+    .token-demo-box {
+      width: 100%;
+      background: var(--color-bg-canvas);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      border: 1px solid var(--color-border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .token-row {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .token-row:last-child {
+      border-bottom: none;
+    }
+
+    /* ==========================================================================
+       CORE EXPERTISE & CAPABILITIES
+       ========================================================================== */
+    .capabilities {
+      padding: var(--space-12) 0;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .capability-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-6);
+    }
+
+    .capability-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+    }
+
+    .capability-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: var(--space-2);
+      color: var(--color-text-primary);
+    }
+
+    .capability-card p {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       FOOTER / CONTACT
+       ========================================================================== */
+    footer {
+      padding: var(--space-16) 0 var(--space-12);
+      border-top: 1px solid var(--color-border-subtle);
+      text-align: center;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--color-brand-primary);
+      color: var(--color-bg-canvas);
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-top: var(--space-4);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .cta-button:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .study-card {
+        grid-template-columns: 1fr;
+      }
+      .study-preview {
+        border-left: none;
+        border-top: 1px solid var(--color-border-subtle);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <nav>
+        <div class="nav-brand">
+          [Your Name] <span class="nav-badge">Staff / Senior DS UX</span>
+        </div>
+        <div class="nav-links">
+          <a href="#work">Case Studies</a>
+          <a href="#expertise">Capabilities</a>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+          <a href="mailto:your.email@domain.com">Get in touch</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="status-pill">
+        <span class="status-dot"></span> Available for Senior / Staff Roles
+      </div>
+      <h1>Bridging UX architecture and engineering through scalable design systems.</h1>
+      <p class="hero-lead">
+        I engineer foundational UI ecosystems, multi-platform token architectures, and accessibility-first component libraries that reduce frontend delivery time and create cohesive product experiences.
+      </p>
+
+      <div class="hero-metrics">
+        <div>
+          <div class="metric-value">40%</div>
+          <div class="metric-label">Reduction in UI sprint delivery time</div>
+        </div>
+        <div>
+          <div class="metric-value">12+</div>
+          <div class="metric-label">Product squads unified on 1 library</div>
+        </div>
+        <div>
+          <div class="metric-value">WCAG 2.2</div>
+          <div class="metric-label">AAA compliance on all base components</div>
+        </div>
+        <div>
+          <div class="metric-value">98%</div>
+          <div class="metric-label">Figma-to-React token parity</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="case-studies" id="work">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Design System Case Studies</h2>
+          <p class="section-subtitle">Real-world impact across token systems, governance, and architecture</p>
+        </div>
+      </div>
+
+      <div class="study-grid">
+        <!-- Case Study 1 -->
+        <article class="study-card">
+          <div class="study-content">
+            <div>
+              <span class="study-tag">Token Architecture & Rebrand</span>
+              <h3>Multi-Tier Design Tokens for Enterprise Multi-Tenant Platform</h3>
+              <p class="study-description">
+                Restructured an ad-hoc 600-component UI library into an automated, three-tier token pipeline (Global &rarr; Semantic &rarr; Component) supporting dark mode and 4 white-label partner themes.
+              </p>
+              <ul class="study-highlights">
+                <li>Automated token sync from Figma Tokens Studio to GitHub using Style Dictionary</li>
+                <li>Eliminated over 180 redundant hex codes and hardcoded spacing values</li>
+                <li>Enabled 1-click theme switching across Web and React Native targets</li>
+              </ul>
+            </div>
+            <div>
+              <a href="#" style="color: var(--color-brand-primary); font-size: 0.9rem; font-weight: 600;">Read Case Study &rarr;</a>
+            </div>
+          </div>
+          <div class="study-preview">
+            <div class="token-demo-box">
+              <div style="color: var(--color-text-tertiary); margin-bottom: 8px;">// Token Resolution Sample</div>
+              <div class="token-row">
+                <span style="color: var(--color-brand-accent);">sys.color.action.primary</span>
+                <span style="color: var(--color-brand-primary);">var(--blue-500)</span>
+              </div>
+              <div class="token-row">
+                <span style="color: var(--color-brand-accent);">sys.space.inset.card</span>
+                <span>var(--space-6)</span>
+              </div>
+              <div class="token-row">
+                <span style="color: var(--color-brand-accent);">cmp.button.radius</span>
+                <span>var(--radius-pill)</span>
+              </div>
+              <div class="token-row">
+                <span style="color: var(--color-brand-accent);">state.focus.ring</span>
+                <span style="color: var(--color-success);">2px solid #38bdf8</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Case Study 2 -->
+        <article class="study-card">
+          <div class="study-content">
+            <div>
+              <span class="study-tag">Governance & Federation</span>
+              <h3>The RFC Contribution Framework: Scaling Across 60+ Engineers</h3>
+              <p class="study-description">
+                Transitioned a centralized design system bottleneck into a federated contribution model, empowering distributed teams to propose, test, and ship components safely.
+              </p>
+              <ul class="study-highlights">
+                <li>Authored component acceptance criteria covering a11y, telemetry, and fallback states</li>
+                <li>Launched bi-weekly "System Office Hours" & Slack triage workflow with 1-day SLA</li>
+                <li>Scaled library adoption rate across product units from 42% to 91% in 9 months</li>
+              </ul>
+            </div>
+            <div>
+              <a href="#" style="color: var(--color-brand-primary); font-size: 0.9rem; font-weight: 600;">Read Case Study &rarr;</a>
+            </div>
+          </div>
+          <div class="study-preview">
+            <div class="token-demo-box">
+              <div style="color: var(--color-text-tertiary); margin-bottom: 8px;">// Governance Pipeline</div>
+              <div class="token-row">
+                <span>1. RFC Pitch</span>
+                <span style="color: var(--color-success);">Approved</span>
+              </div>
+              <div class="token-row">
+                <span>2. UX & A11y Audit</span>
+                <span style="color: var(--color-brand-primary);">WCAG 2.2 Passed</span>
+              </div>
+              <div class="token-row">
+                <span>3. Code Sandbox Review</span>
+                <span style="color: var(--color-brand-accent);">Ready for Canary</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Capabilities / System Strengths -->
+    <section class="capabilities" id="expertise">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Design System Capabilities</h2>
+          <p class="section-subtitle">How I drive efficiency and consistency</p>
+        </div>
+      </div>
+
+      <div class="capability-grid">
+        <div class="capability-card">
+          <h4>Token Engineering</h4>
+          <p>Proficient in defining semantic and component-scoped variables, JSON schema design, Style Dictionary, and bidirectional Figma-Git sync.</p>
+        </div>
+
+        <div class="capability-card">
+          <h4>Accessible Interaction</h4>
+          <p>Deep knowledge of WAI-ARIA authoring practices, focus management, screen-reader ergonomics, and high-contrast color validation.</p>
+        </div>
+
+        <div class="capability-card">
+          <h4>Developer Alignment</h4>
+          <p>Fluent speaking React/CSS props, Storybook documentation, version pinning, and breaking-change mitigation strategies.</p>
+        </div>
+
+        <div class="capability-card">
+          <h4>Component Lifecycle</h4>
+          <p>Designing comprehensive state matrices (hover, focus-visible, active, disabled, loading, skeleton, error) with tight edge-case handling.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer / CTA -->
+    <footer>
+      <h2>Looking to scale your design system team?</h2>
+      <p style="color: var(--color-text-secondary); margin-top: 8px;">Let’s connect to discuss how I can elevate your team's design infrastructure.</p>
+      <a href="mailto:your.email@domain.com" class="cta-button">Contact via Email</a>
+    </footer>
+  </div>
+
+</body>
+</html>

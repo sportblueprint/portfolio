@@ -1,0 +1,8 @@
+{% macro projectCard(title, description, tag="Design", link="#") %}
+  <article class="card">
+    <span class="badge">{{ tag }}</span>
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
+    <a href="{{ link }}" class="btn">View Case Study &rarr;</a>
+  </article>
+{% endmacro %}
