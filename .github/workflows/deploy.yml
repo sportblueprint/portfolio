@@ -1,1 +1,35 @@
+name: Deploy to IONOS via SFTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Uncomment the steps below if your site needs a Node.js build step
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20'
+      # - name: Install and Build
+      #   run: |
+      #     npm ci
+      #     npm run build
+
+      - name: Sync files via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.SFTP_SERVER }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          protocol: sftp
+          port: 22
+          local-dir: ./_site/          # Change to ./dist/ or ./_site/ if building a static site
+          server-dir: /public/          # Change to your domain's target folder if not root
 
