@@ -22,13 +22,14 @@ jobs:
           npm install --no-optional --force
           npm run build
 
-      - name: Copy files via SFTP/SCP
-        uses: appleboy/scp-action@v0.1.7
+      - name: Copy files via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          host: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
+          server: ${{ secrets.SFTP_SERVER }}
           port: 22
-          source: "_site/*"
-          target: "/"
-          strip_components: 1
+          ssh_private_key: ''
+          password: ${{ secrets.SFTP_PASSWORD }}
+          local_path: './_site/*'
+          remote_path: '/'
+          sftp_only: true
