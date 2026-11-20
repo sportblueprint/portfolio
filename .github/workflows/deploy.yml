@@ -31,5 +31,5 @@ jobs:
           ssh_private_key: ''
           password: ${{ secrets.SFTP_PASSWORD }}
           local_path: './_site/*'
-          remote_path: '/'
+          remote_path: '/public/'
           sftp_only: true
